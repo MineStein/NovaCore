@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>NovaCore by MineStein</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>NovaCore</h1>
+        <p>The core for all mini-games on NovaUniverse.</p>
+
+        <p class="view"><a href="https://github.com/MineStein/NovaCore">View the Project on GitHub <small>MineStein/NovaCore</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/MineStein/NovaCore/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/MineStein/NovaCore/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/MineStein/NovaCore">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h3>
+<a name="welcome-to-novacore" class="anchor" href="#welcome-to-novacore"><span class="octicon octicon-link"></span></a>Welcome to NovaCore.</h3>
+
+<p>NovaCore is a project developed by MineStein. It aims to make mini-game development quicker, more efficient, and bug-free. If you wish to contribute to this project, contact MineStein on Skype at: minestein3646.</p>
+
+<h3>
+<a name="getting-started" class="anchor" href="#getting-started"><span class="octicon octicon-link"></span></a>Getting started</h3>
+
+<p>To get started using this awesome development tool, start by adding the following API's to your libraries:</p>
+
+<ul>
+<li><a href="https://dl.bukkit.org/downloads/bukkit/">BukkitAPI</a></li>
+<li><a href="http://dev.bukkit.org/bukkit-plugins/bar-api/">BarAPI</a></li>
+</ul><p>Once you have these two installed, you are ready to begin! Create your main class (don't name it "Core"!). This classes' parent will not be JavaPlugin, instead it will be Core from the com.minestein.novacore package.</p>
+
+<p>This is what it should look (somewhat) like:</p>
+
+<div class="highlight highlight-java"><pre> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="kd">extends</span> <span class="n">Core</span> <span class="o">{</span>
+     <span class="nd">@Override</span>
+     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onLoad</span><span class="o">()</span> <span class="o">{</span>
+
+     <span class="o">}</span>
+     <span class="nd">@Override</span>
+     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onEnable</span><span class="o">()</span> <span class="o">{</span>
+
+     <span class="o">}</span>
+ <span class="o">}</span>
+</pre></div>
+
+<p>Then inside of your plugin.yml file, add the following:</p>
+
+<div class="highlight highlight-yaml"><pre><span class="l-Scalar-Plain">depend</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="nv">NovaCore</span><span class="p-Indicator">]</span>
+</pre></div>
+
+<h3>
+<a name="some-basics" class="anchor" href="#some-basics"><span class="octicon octicon-link"></span></a>Some Basics</h3>
+
+<div class="highlight highlight-java"><pre>    <span class="n">setPrefix</span><span class="o">(</span><span class="n">String</span><span class="o">);</span>
+    <span class="n">setSoftPrefix</span><span class="o">(</span><span class="n">String</span><span class="o">);</span>
+    <span class="n">setDefaultScoreboardEnabled</span><span class="o">(</span><span class="n">Boolean</span><span class="o">);</span>
+</pre></div>
+
+<p><em><strong>NOTE: You must set these three in the onLoad for them to work properly!</strong></em></p>
+
+<p>setPrefix and setSoftPrefix are used to change the overall feel of messages from the server. The ordinary prefix is the one with brackets around it. For example: "[ExampleGame]". The soft prefix is used in the scoreboard (if the default one is enabled) and bar messages. It is the one in random colors without the brackets. For example: "ExampleGame".</p>
+
+<p>setDefaultScoreboardEnabled will tell whether or not the server uses the default side scoreboard in NovaCore. This includes a nice rainbow interface using the soft prefix with a random color code from the valid colors as the objective.</p>
+
+<p>Be sure to play around with this project!</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/MineStein">MineStein</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
