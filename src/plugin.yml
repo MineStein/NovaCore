@@ -1,0 +1,18 @@
+name: NovaCore
+version: 1.0.0
+main: com.minestein.novacore.Core
+
+commands:
+  youtube:
+    description: For YouTubers.
+    aliases: [yt]
+    usage: /yt <Subcommand> <Argument>
+  hub:
+    description: For sending lobby.
+    aliases: [lobby, leave, quit]
+    usage: /hub
+
+permissions:
+  youtube.command:
+    description: For the Youtube command.
+    default: op
