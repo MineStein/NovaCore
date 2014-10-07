@@ -17,6 +17,7 @@ public class TeamManager {
 
     /**
      * Gets the set of teams in the game.
+     *
      * @return A set of teams.
      */
     public static Set<Team> getTeams() {
@@ -25,6 +26,7 @@ public class TeamManager {
 
     /**
      * Registers team into "teams" set.
+     *
      * @param team The team to register.
      */
     public static void registerTeam(Team team) {

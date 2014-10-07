@@ -15,10 +15,12 @@ public final class ServerConnection {
     /**
      * Cannot construct new ServerConnection object.
      */
-    private ServerConnection() { }
+    private ServerConnection() {
+    }
 
     /**
      * Connects the toSend player to the server via BungeeCord.
+     *
      * @param toSend The player to send.
      * @param server The server's display name to send the player to.
      */

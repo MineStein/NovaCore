@@ -19,57 +19,56 @@ public class Youtube implements CommandExecutor {
     final String PREFIX = "§fYou§4§lTube§8> §f";
 
     /**
-     *
-     * @param sender The thing that sent the command.
+     * @param sender  The thing that sent the command.
      * @param command The command that was sent.
-     * @param label The label of the command.
-     * @param args The arguments of the command.
+     * @param label   The label of the command.
+     * @param args    The arguments of the command.
      * @return ignore
      */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("youtube")) {
             if (!sender.hasPermission("youtube.command")) {
-                sender.sendMessage(PREFIX+"§4You don't have permission!");
+                sender.sendMessage(PREFIX + "§4You don't have permission!");
                 return true;
             }
 
-            if (args.length==0) {
-                sender.sendMessage(PREFIX+"§eStream <URL> §8- §6Announce a stream");
-                sender.sendMessage(PREFIX+"§eRecord <URL> §8- §6Announce a recording");
+            if (args.length == 0) {
+                sender.sendMessage(PREFIX + "§eStream <URL> §8- §6Announce a stream");
+                sender.sendMessage(PREFIX + "§eRecord <URL> §8- §6Announce a recording");
                 return true;
             } else {
                 if (!(sender instanceof Player)) return true;
 
                 Player player = (Player) sender;
-                if (args.length==1) {
+                if (args.length == 1) {
                     String args0 = args[0];
                     if (args0.equalsIgnoreCase("record")) {
-                        Bukkit.broadcastMessage(PREFIX+"§e§l" + player.getName().toUpperCase() + " §6is now recording!");
+                        Bukkit.broadcastMessage(PREFIX + "§e§l" + player.getName().toUpperCase() + " §6is now recording!");
                         return true;
                     } else if (args0.equalsIgnoreCase("stream")) {
                         sender.sendMessage(PREFIX + "§4Too few arguments!");
                         return true;
                     } else {
-                        sender.sendMessage(PREFIX+"§4Unknown subcommand!");
+                        sender.sendMessage(PREFIX + "§4Unknown subcommand!");
                         return true;
                     }
-                } else if (args.length==2) {
+                } else if (args.length == 2) {
                     String args0 = args[0];
                     String args1 = args[1];
 
                     if (args0.equalsIgnoreCase("stream")) {
-                        Bukkit.broadcastMessage(PREFIX+"§e§l"+player.getName().toUpperCase()+" §6is now streaming at \n§e§l"+args1.toUpperCase()+"§6!");
+                        Bukkit.broadcastMessage(PREFIX + "§e§l" + player.getName().toUpperCase() + " §6is now streaming at \n§e§l" + args1.toUpperCase() + "§6!");
                         return true;
                     } else if (args0.equalsIgnoreCase("record")) {
-                        sender.sendMessage(PREFIX+"§4Too many arguments!");
+                        sender.sendMessage(PREFIX + "§4Too many arguments!");
                         return true;
                     } else {
-                        player.sendMessage(PREFIX+"§4Unknown subcommand!");
+                        player.sendMessage(PREFIX + "§4Unknown subcommand!");
                         return true;
                     }
                 } else {
-                    sender.sendMessage(PREFIX+"§4Too many arguments!");
+                    sender.sendMessage(PREFIX + "§4Too many arguments!");
                     return true;
                 }
             }

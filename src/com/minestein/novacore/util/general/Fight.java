@@ -24,6 +24,7 @@ public class Fight {
 
     /**
      * Creates a new fight between two players.
+     *
      * @param damager The person who damaged the damager.
      * @param damaged The person who was damaged by the damager.
      */
@@ -35,8 +36,8 @@ public class Fight {
             if (currentFights.getDamager() == damager || currentFights.getDamaged() == damaged) {
                 return;
             } else {
-                damager.sendMessage(Core.getPrefix()+"§6You engaged in a fight with §e§l"+damaged.getName().toUpperCase()+"§6!");
-                damaged.sendMessage(Core.getPrefix()+"§e§l"+damager.getName().toUpperCase()+" §6engaged in a fight with you!");
+                damager.sendMessage(Core.getPrefix() + "§6You engaged in a fight with §e§l" + damaged.getName().toUpperCase() + "§6!");
+                damaged.sendMessage(Core.getPrefix() + "§e§l" + damager.getName().toUpperCase() + " §6engaged in a fight with you!");
 
                 fights.add(new Fight(damager, damaged));
             }
@@ -45,6 +46,7 @@ public class Fight {
 
     /**
      * Gets the person who damaged the damaged
+     *
      * @return The damager
      */
     public Player getDamager() {
@@ -53,6 +55,7 @@ public class Fight {
 
     /**
      * Gets the person who was damaged by the damager
+     *
      * @return The damaged
      */
     public Player getDamaged() {

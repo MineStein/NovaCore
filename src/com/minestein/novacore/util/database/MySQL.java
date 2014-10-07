@@ -18,6 +18,7 @@ public class MySQL {
 
     /**
      * Gets the connection of NovaUniverse's database.
+     *
      * @return The connection.
      */
     public static Connection getConnection() {

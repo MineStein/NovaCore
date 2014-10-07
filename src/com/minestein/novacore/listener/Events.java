@@ -10,7 +10,6 @@ import com.minestein.novacore.util.general.State;
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.GameMode;
-import org.bukkit.Material;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -33,15 +32,16 @@ public class Events implements Listener {
 
     /**
      * Listens for interacting.
+     *
      * @param event The event.
      */
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
         final Player p = event.getPlayer();
-        if (Core.getState()!=State.INGAME) {
-            if (event.getAction()!= Action.RIGHT_CLICK_AIR&& event.getAction()!=Action.RIGHT_CLICK_BLOCK) return;
-            if (event.getItem()==null) return;
-            if (event.getItem().getItemMeta().getDisplayName()==null) return;
+        if (Core.getState() != State.INGAME) {
+            if (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
+            if (event.getItem() == null) return;
+            if (event.getItem().getItemMeta().getDisplayName() == null) return;
 
             p.performCommand("hub");
         }
@@ -49,13 +49,14 @@ public class Events implements Listener {
 
     /**
      * Listens for dying.
+     *
      * @param event The event.
      */
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
         final Player player = event.getEntity();
 
-        event.setDeathMessage(Core.getPrefix()+"§e§l"+event.getEntity().getName().toUpperCase()+" §6has lost!");
+        event.setDeathMessage(Core.getPrefix() + "§e§l" + event.getEntity().getName().toUpperCase() + " §6has lost!");
         player.setHealth(20.0);
         player.setFoodLevel(20);
         player.setSaturation(8F);
@@ -63,7 +64,7 @@ public class Events implements Listener {
         player.getInventory().clear();
         player.getInventory().setArmorContents(null);
 
-        if (Bukkit.getOnlinePlayers().length-1<=1) {
+        if (Bukkit.getOnlinePlayers().length - 1 <= 1) {
             player.kickPlayer("§c§lYou have lost! The game is restarting...");
 
             for (Player players : Bukkit.getOnlinePlayers()) {
@@ -79,6 +80,7 @@ public class Events implements Listener {
 
     /**
      * Listens for the kicking of a player.
+     *
      * @param event The event.
      */
     @EventHandler
@@ -90,7 +92,7 @@ public class Events implements Listener {
             out.writeUTF("lobby");
             event.getPlayer().sendPluginMessage(Core.plugin, "BungeeCord", out.toByteArray());
 
-            event.getPlayer().sendMessage("§8[§5NOVA§6U§8] §4You lost that game of §r"+Core.getPrefix()+"§4!");
+            event.getPlayer().sendMessage("§8[§5NOVA§6U§8] §4You lost that game of §r" + Core.getPrefix() + "§4!");
         } else if (event.getReason().equalsIgnoreCase("§a§lYou have won! The game is restarting...")) {
             event.setCancelled(true);
             ByteArrayDataOutput out = ByteStreams.newDataOutput();
@@ -98,19 +100,20 @@ public class Events implements Listener {
             out.writeUTF("lobby");
             event.getPlayer().sendPluginMessage(Core.plugin, "BungeeCord", out.toByteArray());
 
-            event.getPlayer().sendMessage("§8[§5NOVA§6U§8] §aYou won that game of §r"+Core.getPrefix()+"§a!");
+            event.getPlayer().sendMessage("§8[§5NOVA§6U§8] §aYou won that game of §r" + Core.getPrefix() + "§a!");
         }
     }
 
     /**
      * Listens for an entity being damaged.
+     *
      * @param event The event.
      */
     @EventHandler
     public void onDamage(EntityDamageEvent event) {
-        if (event.getCause()!= EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
-            if (event.getCause()== EntityDamageEvent.DamageCause.VOID) {
-                if (Core.getState()!=State.INGAME) return;
+        if (event.getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
+            if (event.getCause() == EntityDamageEvent.DamageCause.VOID) {
+                if (Core.getState() != State.INGAME) return;
 
                 if (event.getEntity() instanceof Player) {
                     final Player player = (Player) event.getEntity();
@@ -118,7 +121,7 @@ public class Events implements Listener {
                     event.setDamage(0);
                     event.setCancelled(true);
                     player.teleport(Core.getLobbySpawnpoint());
-                    player.sendMessage(Core.getPrefix()+"§4Not a good idea §e§l"+player.getName().toUpperCase()+"§4!");
+                    player.sendMessage(Core.getPrefix() + "§4Not a good idea §e§l" + player.getName().toUpperCase() + "§4!");
                 }
             }
         }
@@ -126,6 +129,7 @@ public class Events implements Listener {
 
     /**
      * Listens for player versus player combat.
+     *
      * @param event The event.
      */
     @EventHandler
@@ -134,13 +138,13 @@ public class Events implements Listener {
             Player damager = (Player) event.getDamager();
             Player damaged = (Player) event.getEntity();
 
-            if (Core.getState()!=State.INGAME) {
+            if (Core.getState() != State.INGAME) {
                 event.setCancelled(true);
                 return;
             } else {
                 if (!Core.isPvpEnabled()) {
                     event.setCancelled(true);
-                    damager.sendMessage(Core.getPrefix()+"§4This is not a PvP-oriented game!");
+                    damager.sendMessage(Core.getPrefix() + "§4This is not a PvP-oriented game!");
                     return;
                 } else {
                     event.setCancelled(false);
@@ -161,13 +165,13 @@ public class Events implements Listener {
 
             if (arrow.getShooter() instanceof Player) {
                 Player shooter = (Player) arrow.getShooter();
-                if (Core.getState()!=State.INGAME) {
+                if (Core.getState() != State.INGAME) {
                     event.setCancelled(true);
                     return;
                 } else {
                     if (!Core.isArrowHitEnabled()) {
                         event.setCancelled(true);
-                        shooter.sendMessage(Core.getPrefix()+"§4This is not a PvP-oriented game!");
+                        shooter.sendMessage(Core.getPrefix() + "§4This is not a PvP-oriented game!");
                         return;
                     } else {
                         event.setCancelled(false);
@@ -186,15 +190,16 @@ public class Events implements Listener {
 
     /**
      * Listens for breaking a block.
+     *
      * @param event The event.
      */
     @EventHandler
     public void onBreak(BlockBreakEvent event) {
         final Player player = event.getPlayer();
 
-        if (player.getGameMode()== GameMode.CREATIVE) return;
+        if (player.getGameMode() == GameMode.CREATIVE) return;
 
-        if (Core.getState()!=State.INGAME) {
+        if (Core.getState() != State.INGAME) {
             event.setCancelled(true);
             return;
         } else {
@@ -210,21 +215,22 @@ public class Events implements Listener {
 
     /**
      * Listens for placing blocks.
+     *
      * @param event The event.
      */
     @EventHandler
     public void onPlace(BlockPlaceEvent event) {
         final Player player = event.getPlayer();
 
-        if (player.getGameMode()== GameMode.CREATIVE) return;
+        if (player.getGameMode() == GameMode.CREATIVE) return;
 
-        if (Core.getState()!=State.INGAME) {
+        if (Core.getState() != State.INGAME) {
             event.setCancelled(true);
             return;
         } else {
             if (!Core.isBuildEnabled()) {
                 event.setCancelled(true);
-                player.sendMessage(Core.getPrefix()+"§4You cannot place blocks!");
+                player.sendMessage(Core.getPrefix() + "§4You cannot place blocks!");
                 return;
             } else {
                 event.setCancelled(false);
@@ -234,6 +240,7 @@ public class Events implements Listener {
 
     /**
      * Listens for a player chatting.
+     *
      * @param event The event.
      */
     @EventHandler
@@ -241,14 +248,15 @@ public class Events implements Listener {
         final Player player = event.getPlayer();
 
         if (player.isOp()) {
-            event.setFormat("§8(§4Staff§8) §e§l"+player.getName().toUpperCase()+"§8: §a"+event.getMessage());
+            event.setFormat("§8(§4Staff§8) §e§l" + player.getName().toUpperCase() + "§8: §a" + event.getMessage());
         } else {
-            event.setFormat("§8(§1Player§8) §e§l"+player.getName().toUpperCase()+"§8: §a"+event.getMessage());
+            event.setFormat("§8(§1Player§8) §e§l" + player.getName().toUpperCase() + "§8: §a" + event.getMessage());
         }
     }
 
     /**
      * Listens for a player logging in.
+     *
      * @param event The event.
      */
     @EventHandler
@@ -261,7 +269,7 @@ public class Events implements Listener {
                     break;
                 } else {
                     event.allow();
-                    if (Core.getPlayers()==null) return;
+                    if (Core.getPlayers() == null) return;
 
                     Core.getPlayers().add(event.getPlayer().getName());
                     break;
@@ -315,6 +323,7 @@ public class Events implements Listener {
 
     /**
      * Listens for a player joining.
+     *
      * @param event The event.
      */
     @EventHandler
@@ -325,7 +334,7 @@ public class Events implements Listener {
             Core.getOnline().setScore(Bukkit.getOnlinePlayers().length);
         }
 
-        event.setJoinMessage(Core.getPrefix()+"§e§l"+event.getPlayer().getName().toUpperCase()+" §6has joined §8(§3"+Bukkit.getOnlinePlayers().length+"§8/§3"+Core.getMaxPlayers()+"§8)");
+        event.setJoinMessage(Core.getPrefix() + "§e§l" + event.getPlayer().getName().toUpperCase() + " §6has joined §8(§3" + Bukkit.getOnlinePlayers().length + "§8/§3" + Core.getMaxPlayers() + "§8)");
 
         event.getPlayer().teleport(Core.getLobbySpawnpoint());
         p.setHealth(20.0);
@@ -335,7 +344,7 @@ public class Events implements Listener {
         event.getPlayer().getInventory().setItem(0, Core.getHub());
 
         for (Player players : Bukkit.getOnlinePlayers()) {
-            if (Core.getBoard()==null) return;
+            if (Core.getBoard() == null) return;
 
             players.setScoreboard(Core.getBoard());
         }
@@ -343,26 +352,27 @@ public class Events implements Listener {
 
     /**
      * Listens for quiting.
+     *
      * @param event The event.
      */
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         if (Core.isDefaultScoreboardEnabled()) {
-            Core.getOnline().setScore(Bukkit.getOnlinePlayers().length-1);
+            Core.getOnline().setScore(Bukkit.getOnlinePlayers().length - 1);
         }
 
-        int playerAmount = Bukkit.getServer().getOnlinePlayers().length-1;
+        int playerAmount = Bukkit.getServer().getOnlinePlayers().length - 1;
 
-        event.setQuitMessage(Core.getPrefix()+"§e§l"+event.getPlayer().getName().toUpperCase()+" §6left §8(§3"+playerAmount+"§8/§3"+Core.getMaxPlayers()+"§8)");
+        event.setQuitMessage(Core.getPrefix() + "§e§l" + event.getPlayer().getName().toUpperCase() + " §6left §8(§3" + playerAmount + "§8/§3" + Core.getMaxPlayers() + "§8)");
 
-        if (Core.getState()== State.LOBBY && playerAmount < Core.getMinPlayers()) {
+        if (Core.getState() == State.LOBBY && playerAmount < Core.getMinPlayers()) {
             ChatUtil.broadcast("§6Not enough players, the timer has been reset.");
             Core.setTicks(31);
-        } else if (Core.getState()==State.PREGAME && playerAmount < Core.getMinPlayers()) {
+        } else if (Core.getState() == State.PREGAME && playerAmount < Core.getMinPlayers()) {
             ChatUtil.broadcast("§6Not enough players, the timer has been reset.");
             Core.setState(State.LOBBY);
             Core.setTicks(31);
-        } else if (Core.getState()==State.WARMUP && playerAmount < Core.getMinPlayers()) {
+        } else if (Core.getState() == State.WARMUP && playerAmount < Core.getMinPlayers()) {
             ChatUtil.broadcast("§6Not enough players to start, the game has been put back into lobby mode.");
 
             for (Player players : Bukkit.getServer().getOnlinePlayers()) {
@@ -384,7 +394,7 @@ public class Events implements Listener {
             Core.setState(State.LOBBY);
             Core.setTicks(31);
 
-            for(PotionEffect effect : event.getPlayer().getActivePotionEffects()){
+            for (PotionEffect effect : event.getPlayer().getActivePotionEffects()) {
                 event.getPlayer().removePotionEffect(effect.getType());
             }
 
@@ -396,7 +406,7 @@ public class Events implements Listener {
 
             event.getPlayer().getInventory().setItem(0, Core.getHub());
         }
-        if (Core.getState()==State.INGAME && playerAmount < 1) {
+        if (Core.getState() == State.INGAME && playerAmount < 1) {
             for (Player players : Bukkit.getServer().getOnlinePlayers()) {
                 players.kickPlayer("§2You have won the game");
             }
@@ -408,21 +418,22 @@ public class Events implements Listener {
 
     /**
      * Listens for dropping.
+     *
      * @param event The event.
      */
     @EventHandler
     public void onDrop(PlayerDropItemEvent event) {
         final Player player = event.getPlayer();
 
-        if (player.getGameMode()== GameMode.CREATIVE) return;
+        if (player.getGameMode() == GameMode.CREATIVE) return;
 
-        if (Core.getState()!=State.INGAME) {
+        if (Core.getState() != State.INGAME) {
             event.setCancelled(true);
             return;
         } else {
             if (!Core.isDropItemsEnabled()) {
                 event.setCancelled(true);
-                player.sendMessage(Core.getPrefix()+"§4You cannot drop items!");
+                player.sendMessage(Core.getPrefix() + "§4You cannot drop items!");
                 return;
             } else {
                 event.setCancelled(false);
@@ -432,18 +443,21 @@ public class Events implements Listener {
 
     /**
      * Listens for moving.
+     *
      * @param event The event.
      */
     @EventHandler
     public void onMove(PlayerMoveEvent event) {
         if (Hub.alreadySending.contains(event.getPlayer().getName())) {
-            if (event.getTo().getY()==event.getFrom().getY() || event.getTo().getX()==event.getFrom().getX() || event.getTo().getZ()==event.getFrom().getZ()) return;
+            if (event.getTo().getY() == event.getFrom().getY() || event.getTo().getX() == event.getFrom().getX() || event.getTo().getZ() == event.getFrom().getZ())
+                return;
 
             event.setTo(event.getFrom());
         }
 
-        if (Core.getState()==State.WARMUP) {
-            if (event.getFrom().getPitch()!=event.getTo().getPitch()||event.getFrom().getYaw()!=event.getTo().getYaw()) return;
+        if (Core.getState() == State.WARMUP) {
+            if (event.getFrom().getPitch() != event.getTo().getPitch() || event.getFrom().getYaw() != event.getTo().getYaw())
+                return;
 
             event.setTo(event.getFrom());
         }
@@ -451,15 +465,16 @@ public class Events implements Listener {
 
     /**
      * Listens for picking up items.
+     *
      * @param event The event.
      */
     @EventHandler
     public void onPickup(PlayerPickupItemEvent event) {
         final Player player = event.getPlayer();
 
-        if (player.getGameMode()== GameMode.CREATIVE) return;
+        if (player.getGameMode() == GameMode.CREATIVE) return;
 
-        if (Core.getState()!=State.INGAME) {
+        if (Core.getState() != State.INGAME) {
             event.setCancelled(true);
             return;
         } else {

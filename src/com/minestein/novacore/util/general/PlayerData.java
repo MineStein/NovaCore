@@ -12,14 +12,16 @@ public final class PlayerData {
     /**
      * Cannot construct new PlayerData object.
      */
-    private PlayerData() { }
+    private PlayerData() {
+    }
 
     /**
      * Resets any of the player data that is true.
-     * @param player The player to get the data from.
-     * @param health The health.
-     * @param hunger The hunger.
-     * @param saturation The saturation.
+     *
+     * @param player       The player to get the data from.
+     * @param health       The health.
+     * @param hunger       The hunger.
+     * @param saturation   The saturation.
      * @param remainingAir The remaining air.
      */
     public void resetData(Player player, boolean health, boolean hunger, boolean saturation, boolean remainingAir) {

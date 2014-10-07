@@ -18,9 +18,7 @@ import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
-import sun.jvm.hotspot.debugger.cdbg.LoadObject;
 
-import java.security.spec.ECField;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -30,11 +28,6 @@ import java.util.Random;
  * GNU license. Any and all assets are the sole property of MineStein.
  */
 public class Core extends JavaPlugin {
-
-    /*
-     * TODO
-     * - Implement SQL databasing
-     */
 
     private static int ticks;
     private static String prefix = "§8[§5Game§8] §f";
@@ -48,7 +41,7 @@ public class Core extends JavaPlugin {
     private static Location[] ingamePoints;
     private static String[] ingameMessage;
     private static String[] announcements;
-    final String[] validColorCodes = new String[] {
+    final String[] validColorCodes = new String[]{
             "4", "c", "e", "a", "b", "9", "d"
     };
     public static final String ingameMessageHeader = "§c§l/ §4§l/ §c§l/ §4§l/ §c§l/ §5§lNova§6§lUniverse §c§l/ §4§l/ §c§l/ §4§l/ §c§l/";
@@ -280,7 +273,7 @@ public class Core extends JavaPlugin {
     }
 
     public static void setPrefix(String name) {
-        String prefix = "§8[§5"+name+"§8] §f";
+        String prefix = "§8[§5" + name + "§8] §f";
 
         Core.prefix = prefix;
     }
@@ -350,10 +343,11 @@ public class Core extends JavaPlugin {
     }
 
     int changeText = 0;
+
     public void changeText(final Objective o, long time, final String... text) {
         Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
             public void run() {
-                if(changeText >= text.length)
+                if (changeText >= text.length)
                     changeText = 0;
                 o.setDisplayName(text[changeText]);
                 changeText++;
@@ -367,7 +361,8 @@ public class Core extends JavaPlugin {
         plugin = this;
         random = new Random();
 
-        hub = new ItemStack(Material.BLAZE_POWDER); {
+        hub = new ItemStack(Material.BLAZE_POWDER);
+        {
             ItemMeta m = hub.getItemMeta();
             m.setDisplayName("§c§lGo to Hub §7§o(Right-Click)");
             ArrayList<String> lore = new ArrayList<>();
@@ -392,7 +387,7 @@ public class Core extends JavaPlugin {
             timeLeft = boardObjective.getScore("§eTime");
             timeLeft.setScore(31);
 
-            changeText(boardObjective, 1000, "§"+validColorCodes[random.nextInt(validColorCodes.length)]+"§l"+getSoftPrefix());
+            changeText(boardObjective, 1000, "§" + validColorCodes[random.nextInt(validColorCodes.length)] + "§l" + getSoftPrefix());
         }
 
         blocks = new ArrayList<>();
@@ -413,7 +408,7 @@ public class Core extends JavaPlugin {
             public void run() {
                 BarAPI.setMessage(announcements[random.nextInt(announcements.length)]);
             }
-        },0,40);
+        }, 0, 40);
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
             @Override
@@ -425,7 +420,7 @@ public class Core extends JavaPlugin {
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
             @Override
             public void run() {
-                BarAPI.setMessage("§"+validColorCodes[random.nextInt(validColorCodes.length)]+"§l"+getSoftPrefix()+" §e"+currentMessage);
+                BarAPI.setMessage("§" + validColorCodes[random.nextInt(validColorCodes.length)] + "§l" + getSoftPrefix() + " §e" + currentMessage);
             }
         }, 5, 10);
 
@@ -435,13 +430,13 @@ public class Core extends JavaPlugin {
                 for (World worlds : Bukkit.getWorlds()) {
                     for (Chunk chunks : worlds.getLoadedChunks()) {
                         for (Entity entities : chunks.getEntities()) {
-                            if (!(entities instanceof Player&& !(entities instanceof Pig)&& !(entities instanceof EnderPearl)&& !(entities instanceof Snowball))) {
+                            if (!(entities instanceof Player && !(entities instanceof Pig) && !(entities instanceof EnderPearl) && !(entities instanceof Snowball))) {
                                 if (entities instanceof Item) {
                                     if (isClearItemsEnabled()) {
                                         entities.remove();
                                         return;
                                     } else {
-                                      return;
+                                        return;
                                     }
                                 } else {
                                     entities.remove();
@@ -453,7 +448,7 @@ public class Core extends JavaPlugin {
 
                 Timer.runTimer();
             }
-        },0,20);
+        }, 0, 20);
 
         Bukkit.getServer().getPluginManager().registerEvents(new Events(), this);
     }

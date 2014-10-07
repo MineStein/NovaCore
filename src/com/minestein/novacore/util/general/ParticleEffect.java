@@ -16,15 +16,15 @@ import com.minestein.novacore.util.reflection.ReflectionUtils;
 
 /**
  * <b>ParticleEffect Library</b>
- * <p>
+ * <p/>
  * This library was created by @DarkBlade12 based on content related to particles of @microgeek (names and packet parameters), it allows you to display all Minecraft particle effects on a Bukkit server
- * <p>
+ * <p/>
  * You are welcome to use it, modify it and redistribute it under the following conditions:
  * <ul>
  * <li>Don't claim this class as your own
  * <li>Don't remove this disclaimer
  * </ul>
- * <p>
+ * <p/>
  * <i>It would be nice if you provide credit to me if you use this class in a published project</i>
  *
  * @author DarkBlade12
@@ -326,7 +326,7 @@ public enum ParticleEffect {
     /**
      * Construct a new particle effect
      *
-     * @param name Name of this particle effect
+     * @param name          Name of this particle effect
      * @param requiresWater Indicates whether water is required for this particle effect to display properly
      */
     private ParticleEffect(String name, boolean requiresWater) {
@@ -407,10 +407,10 @@ public enum ParticleEffect {
      * @param offsetX Maximum distance particles can fly away from the center on the x-axis
      * @param offsetY Maximum distance particles can fly away from the center on the y-axis
      * @param offsetZ Maximum distance particles can fly away from the center on the z-axis
-     * @param speed Display speed of the particles
-     * @param amount Amount of particles
-     * @param center Center location of the effect
-     * @param range Range of the visibility (Maximum range for particles is usually 16, but it can differ for some types)
+     * @param speed   Display speed of the particles
+     * @param amount  Amount of particles
+     * @param center  Center location of the effect
+     * @param range   Range of the visibility (Maximum range for particles is usually 16, but it can differ for some types)
      * @throws IllegalArgumentException If the particle effect requires water and none is at the center location
      * @see ParticleEffectPacket
      * @see ParticleEffectPacket#sendTo(Location, double)
@@ -428,9 +428,9 @@ public enum ParticleEffect {
      * @param offsetX Maximum distance particles can fly away from the center on the x-axis
      * @param offsetY Maximum distance particles can fly away from the center on the y-axis
      * @param offsetZ Maximum distance particles can fly away from the center on the z-axis
-     * @param speed Display speed of the particles
-     * @param amount Amount of particles
-     * @param center Center location of the effect
+     * @param speed   Display speed of the particles
+     * @param amount  Amount of particles
+     * @param center  Center location of the effect
      * @param players Receivers of the effect
      * @throws IllegalArgumentException If the particle effect requires water and none is at the center location
      * @see ParticleEffectPacket
@@ -446,15 +446,15 @@ public enum ParticleEffect {
     /**
      * Displays an icon crack (item break) particle effect which is only visible for all players within a certain range in the world of @param center
      *
-     * @param id Id of the icon
-     * @param data Data value
+     * @param id      Id of the icon
+     * @param data    Data value
      * @param offsetX Maximum distance particles can fly away from the center on the x-axis
      * @param offsetY Maximum distance particles can fly away from the center on the y-axis
      * @param offsetZ Maximum distance particles can fly away from the center on the z-axis
-     * @param speed Display speed of the particles
-     * @param amount Amount of particles
-     * @param center Center location of the effect
-     * @param range Range of the visibility (Maximum range for particles is usually 16, but it can differ for some types)
+     * @param speed   Display speed of the particles
+     * @param amount  Amount of particles
+     * @param center  Center location of the effect
+     * @param range   Range of the visibility (Maximum range for particles is usually 16, but it can differ for some types)
      * @see ParticleEffectPacket
      * @see ParticleEffectPacket#sendTo(Location, double)
      */
@@ -465,14 +465,14 @@ public enum ParticleEffect {
     /**
      * Displays an icon crack (item break) particle effect which is only visible for the specified players
      *
-     * @param id Id of the icon
-     * @param data Data value
+     * @param id      Id of the icon
+     * @param data    Data value
      * @param offsetX Maximum distance particles can fly away from the center on the x-axis
      * @param offsetY Maximum distance particles can fly away from the center on the y-axis
      * @param offsetZ Maximum distance particles can fly away from the center on the z-axis
-     * @param speed Display speed of the particles
-     * @param amount Amount of particles
-     * @param center Center location of the effect
+     * @param speed   Display speed of the particles
+     * @param amount  Amount of particles
+     * @param center  Center location of the effect
      * @param players Receivers of the effect
      * @see ParticleEffectPacket
      * @see ParticleEffectPacket#sendTo(Location, List)
@@ -484,14 +484,14 @@ public enum ParticleEffect {
     /**
      * Displays a block crack (block break) particle effect which is only visible for all players within a certain range in the world of @param center
      *
-     * @param id Id of the block
-     * @param data Data value
+     * @param id      Id of the block
+     * @param data    Data value
      * @param offsetX Maximum distance particles can fly away from the center on the x-axis
      * @param offsetY Maximum distance particles can fly away from the center on the y-axis
      * @param offsetZ Maximum distance particles can fly away from the center on the z-axis
-     * @param amount Amount of particles
-     * @param center Center location of the effect
-     * @param range Range of the visibility (Maximum range for particles is usually 16, but it can differ for some types)
+     * @param amount  Amount of particles
+     * @param center  Center location of the effect
+     * @param range   Range of the visibility (Maximum range for particles is usually 16, but it can differ for some types)
      * @throws IllegalArgumentException If the specified id is not a block id
      * @see ParticleEffectPacket
      * @see ParticleEffectPacket#sendTo(Location, double)
@@ -506,13 +506,13 @@ public enum ParticleEffect {
     /**
      * Displays a block crack (block break) particle effect which is only visible for the specified players
      *
-     * @param id Id of the block
-     * @param data Data value
+     * @param id      Id of the block
+     * @param data    Data value
      * @param offsetX Maximum distance particles can fly away from the center on the x-axis
      * @param offsetY Maximum distance particles can fly away from the center on the y-axis
      * @param offsetZ Maximum distance particles can fly away from the center on the z-axis
-     * @param amount Amount of particles
-     * @param center Center location of the effect
+     * @param amount  Amount of particles
+     * @param center  Center location of the effect
      * @param players Receivers of the effect
      * @throws IllegalArgumentException If the specified id is not a block id
      * @see ParticleEffectPacket
@@ -528,15 +528,15 @@ public enum ParticleEffect {
     /**
      * Displays a block dust particle effect which is only visible for all players within a certain range in the world of @param center
      *
-     * @param id Id of the block
-     * @param data Data value
+     * @param id      Id of the block
+     * @param data    Data value
      * @param offsetX Maximum distance particles can fly away from the center on the x-axis
      * @param offsetY Maximum distance particles can fly away from the center on the y-axis
      * @param offsetZ Maximum distance particles can fly away from the center on the z-axis
-     * @param speed Display speed of the particles
-     * @param amount Amount of particles
-     * @param center Center location of the effect
-     * @param range Range of the visibility (Maximum range for particles is usually 16, but it can differ for some types)
+     * @param speed   Display speed of the particles
+     * @param amount  Amount of particles
+     * @param center  Center location of the effect
+     * @param range   Range of the visibility (Maximum range for particles is usually 16, but it can differ for some types)
      * @throws IllegalArgumentException If the specified id is not a block id
      * @see ParticleEffectPacket
      * @see ParticleEffectPacket#sendTo(Location, double)
@@ -551,14 +551,14 @@ public enum ParticleEffect {
     /**
      * Displays a block dust particle effect which is only visible for the specified players
      *
-     * @param id Id of the block
-     * @param data Data value
+     * @param id      Id of the block
+     * @param data    Data value
      * @param offsetX Maximum distance particles can fly away from the center on the x-axis
      * @param offsetY Maximum distance particles can fly away from the center on the y-axis
      * @param offsetZ Maximum distance particles can fly away from the center on the z-axis
-     * @param speed Display speed of the particles
-     * @param amount Amount of particles
-     * @param center Center location of the effect
+     * @param speed   Display speed of the particles
+     * @param amount  Amount of particles
+     * @param center  Center location of the effect
      * @param players Receivers of the effect
      * @throws IllegalArgumentException If the specified id is not a block id
      * @see ParticleEffectPacket
@@ -573,7 +573,7 @@ public enum ParticleEffect {
 
     /**
      * Represents a particle effect packet with all attributes which is used for sending packets to the players
-     * <p>
+     * <p/>
      * This class is part of the <b>ParticleEffect Library</b> and follows the same usage conditions
      *
      * @author DarkBlade12
@@ -596,12 +596,12 @@ public enum ParticleEffect {
         /**
          * Construct a new particle effect packet
          *
-         * @param name Name of the effect
+         * @param name    Name of the effect
          * @param offsetX Maximum distance particles can fly away from the center on the x-axis
          * @param offsetY Maximum distance particles can fly away from the center on the y-axis
          * @param offsetZ Maximum distance particles can fly away from the center on the z-axis
-         * @param speed Display speed of the particles
-         * @param amount Amount of particles
+         * @param speed   Display speed of the particles
+         * @param amount  Amount of particles
          * @throws IllegalArgumentException If the speed is lower than 0 or the amount is lower than 1
          * @see #initialize()
          */
@@ -623,7 +623,7 @@ public enum ParticleEffect {
 
         /**
          * Initializes {@link #packetConstructor}, {@link #getHandle}, {@link #playerConnection} and {@link #sendPacket} and sets {@link #initialized} to <code>true</code> if it succeeds
-         * <p>
+         * <p/>
          * <b>Note:</b> These fields only have to be initialized once, so it will return if {@link #initialized} is already set to <code>true</code>
          *
          * @throws VersionIncompatibleException if accessed packets, fields or methods differ in your bukkit version
@@ -661,7 +661,7 @@ public enum ParticleEffect {
          * @param center Center location of the effect
          * @param player Receiver of the packet
          * @throws PacketInstantiationException if instantion fails due to an unknown error
-         * @throws PacketSendingException if sending fails due to an unknown error
+         * @throws PacketSendingException       if sending fails due to an unknown error
          */
         public void sendTo(Location center, Player player) throws PacketInstantiationException, PacketSendingException {
             if (packet == null) {
@@ -690,7 +690,7 @@ public enum ParticleEffect {
         /**
          * Sends the packet to all players in the list
          *
-         * @param center Center location of the effect
+         * @param center  Center location of the effect
          * @param players Receivers of the packet
          * @throws IllegalArgumentException If the player list is empty
          * @see #sendTo(Location center, Player player)
@@ -708,7 +708,7 @@ public enum ParticleEffect {
          * Sends the packet to all players in a certain range
          *
          * @param center Center location of the effect
-         * @param range Range in which players will receive the packet (Maximum range for particles is usually 16, but it can differ for some types)
+         * @param range  Range in which players will receive the packet (Maximum range for particles is usually 16, but it can differ for some types)
          * @throws IllegalArgumentException If the range is lower than 1
          * @see #sendTo(Location center, Player player)
          */
@@ -729,7 +729,7 @@ public enum ParticleEffect {
 
         /**
          * Represents a runtime exception that is thrown if a bukkit version is not compatible with this library
-         * <p>
+         * <p/>
          * This class is part of the <b>ParticleEffect Library</b> and follows the same usage conditions
          *
          * @author DarkBlade12
@@ -742,7 +742,7 @@ public enum ParticleEffect {
              * Construct a new version incompatible exception
              *
              * @param message Message that will be logged
-             * @param cause Cause of the exception
+             * @param cause   Cause of the exception
              */
             public VersionIncompatibleException(String message, Throwable cause) {
                 super(message, cause);
@@ -751,7 +751,7 @@ public enum ParticleEffect {
 
         /**
          * Represents a runtime exception that is thrown if packet instantiation fails
-         * <p>
+         * <p/>
          * This class is part of the <b>ParticleEffect Library</b> and follows the same usage conditions
          *
          * @author DarkBlade12
@@ -764,7 +764,7 @@ public enum ParticleEffect {
              * Construct a new packet instantiation exception
              *
              * @param message Message that will be logged
-             * @param cause Cause of the exception
+             * @param cause   Cause of the exception
              */
             public PacketInstantiationException(String message, Throwable cause) {
                 super(message, cause);
@@ -773,7 +773,7 @@ public enum ParticleEffect {
 
         /**
          * Represents a runtime exception that is thrown if packet sending fails
-         * <p>
+         * <p/>
          * This class is part of the <b>ParticleEffect Library</b> and follows the same usage conditions
          *
          * @author DarkBlade12
@@ -786,7 +786,7 @@ public enum ParticleEffect {
              * Construct a new packet sending exception
              *
              * @param message Message that will be logged
-             * @param cause Cause of the exception
+             * @param cause   Cause of the exception
              */
             public PacketSendingException(String message, Throwable cause) {
                 super(message, cause);

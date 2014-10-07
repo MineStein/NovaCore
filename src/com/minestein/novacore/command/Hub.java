@@ -24,33 +24,32 @@ public class Hub implements CommandExecutor {
     public static ArrayList<String> alreadySending = new ArrayList<>();
 
     /**
-     *
-     * @param sender The thing that sent the command.
+     * @param sender  The thing that sent the command.
      * @param command The command sent.
-     * @param s The command's label.
+     * @param s       The command's label.
      * @param strings The arguments to the command.
      * @return ignore
      */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(Core.getPrefix()+"§4Only players can exit to hub!");
+            sender.sendMessage(Core.getPrefix() + "§4Only players can exit to hub!");
             return true;
         } else {
             final Player p = (Player) sender;
 
             if (alreadySending.contains(p.getName())) {
-                p.sendMessage(Core.getPrefix()+"§4You are already going to the hub!");
+                p.sendMessage(Core.getPrefix() + "§4You are already going to the hub!");
                 return true;
             }
 
             alreadySending.add(p.getName());
 
-            String[] messages = new String[] {
-                "Through the portal!", "They aren't gonna make it!",
-                "RUUUNNNNNN!", "It's a trap!", "Don't do it!"
+            String[] messages = new String[]{
+                    "Through the portal!", "They aren't gonna make it!",
+                    "RUUUNNNNNN!", "It's a trap!", "Don't do it!"
             };
-            p.sendMessage(Core.getPrefix()+"§bSending you to the hub! §b§o"+messages[Core.random.nextInt(messages.length)]);
+            p.sendMessage(Core.getPrefix() + "§bSending you to the hub! §b§o" + messages[Core.random.nextInt(messages.length)]);
 
             Bukkit.getScheduler().runTaskLater(Core.plugin, new Runnable() {
                 @Override

@@ -16,7 +16,8 @@ public class Loadout {
 
     /**
      * Creates a new loadout.
-     * @param armor The armor in the loadout.
+     *
+     * @param armor     The armor in the loadout.
      * @param inventory The inventory in the loadout.
      */
     public Loadout(ItemStack[] armor, ItemStack[] inventory) {
@@ -26,6 +27,7 @@ public class Loadout {
 
     /**
      * Gets the armor in the loadout.
+     *
      * @return The armor.
      */
     public ItemStack[] getArmor() {
@@ -34,6 +36,7 @@ public class Loadout {
 
     /**
      * Sets the armor in the loadout.
+     *
      * @param armor The armor to replace the old array.
      */
     public void setArmor(ItemStack[] armor) {
@@ -42,6 +45,7 @@ public class Loadout {
 
     /**
      * Gets the inventory in the loadout.
+     *
      * @return The inventory.
      */
     public ItemStack[] getInventory() {
@@ -50,6 +54,7 @@ public class Loadout {
 
     /**
      * Sets the inventory in the loadout.
+     *
      * @param inventory The inventory to replace the old array.
      */
     public void setInventory(ItemStack[] inventory) {

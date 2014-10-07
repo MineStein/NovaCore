@@ -24,7 +24,8 @@ public class Team {
 
     /**
      * Creates a new team (NOTE: TeamManager.registerTeam(team) in the onEnable is required).
-     * @param name The name of the new team.
+     *
+     * @param name    The name of the new team.
      * @param members The members within the team.
      */
     public Team(String name, HashSet<Player> members) {
@@ -34,6 +35,7 @@ public class Team {
 
     /**
      * Adds the player to the team.
+     *
      * @param player The player to add.
      */
     public void addMember(Player player) {
@@ -42,11 +44,12 @@ public class Team {
 
     /**
      * Removes the player from the team.
+     *
      * @param player The player to remove.
      */
     public void removeMember(Player player) {
         if (!members.contains(player)) {
-            Bukkit.getLogger().warning(player.getName().toUpperCase()+" is not on this team!");
+            Bukkit.getLogger().warning(player.getName().toUpperCase() + " is not on this team!");
             return;
         } else {
             this.members.remove(player);
@@ -55,6 +58,7 @@ public class Team {
 
     /**
      * Gets the name of the team.
+     *
      * @return The name.
      */
     public String getName() {
@@ -63,6 +67,7 @@ public class Team {
 
     /**
      * Sets the name of the team.
+     *
      * @param name The new name to replace the old one.
      */
     public void setName(String name) {
@@ -71,6 +76,7 @@ public class Team {
 
     /**
      * Gets the members in the team.
+     *
      * @return The members.
      */
     public Set<Player> getMembers() {
@@ -79,6 +85,7 @@ public class Team {
 
     /**
      * Sets the members in the team.
+     *
      * @param members The new members to replace the old one.
      */
     public void setMembers(HashSet<Player> members) {

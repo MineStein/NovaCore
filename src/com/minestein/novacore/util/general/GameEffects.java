@@ -1,6 +1,5 @@
 package com.minestein.novacore.util.general;
 
-import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -14,9 +13,10 @@ public class GameEffects {
 
     /**
      * Plays a sound effect at the players location.
+     *
      * @param source The source of the sound.
      * @param entity The entity that the sound will be played at.
-     * @param sound The sound to play.
+     * @param sound  The sound to play.
      */
     public static void playSoundEffect(Player source, Entity entity, Sound sound) {
         source.playSound(entity.getLocation(), sound, 1F, 1F);
@@ -24,6 +24,7 @@ public class GameEffects {
 
     /**
      * Plays a formatted particles at the entities location.
+     *
      * @param entity The entity that the particle will played at.
      * @param effect The effect to play.
      */
