@@ -2,7 +2,6 @@ package com.minestein.novacore;
 
 import com.minestein.novacore.command.Hub;
 import com.minestein.novacore.command.Join;
-import com.minestein.novacore.command.Join;
 import com.minestein.novacore.command.Youtube;
 import com.minestein.novacore.listener.Events;
 import com.minestein.novacore.util.general.Fight;
@@ -30,6 +29,10 @@ import java.util.Random;
  * GNU license. Any and all assets are the sole property of MineStein.
  */
 public class Core extends JavaPlugin {
+
+    /* TODO
+     * - scoreboard under names
+     */
 
     private static int ticks;
     private static String prefix = "§8[§5Game§8] §f";
@@ -74,337 +77,607 @@ public class Core extends JavaPlugin {
     public static Random random;
     private static Loadout currentLoadout;
 
+    /**
+     * Gets the current message in the boss bar.
+     * @return The boss bar message.
+     */
     public static String getCurrentMessage() {
         return currentMessage;
     }
 
+    /**
+     * Sets the current message of the boss bar.
+     * @param currentMessage The new message.
+     */
     public static void setCurrentMessage(String currentMessage) {
         Core.currentMessage = currentMessage;
     }
 
+    /**
+     * Gets the plugin instance.
+     * @return The plugin.
+     */
     public static Core getPlugin() {
         return plugin;
     }
 
-    public static void setPlugin(Core plugin) {
-        Core.plugin = plugin;
-    }
-
+    /**
+     * Gets the valid color codes for the games.
+     * @return The valid color codes.
+     */
     public String[] getValidColorCodes() {
         return validColorCodes;
     }
 
+    /**
+     * Gets the in-game message header.
+     * @return The message header.
+     */
     public static String getIngameMessageHeader() {
         return ingameMessageHeader;
     }
 
+    /**
+     * Gets whether or not voting is enabled.
+     * @return Voting enabled boolean.
+     */
     public static boolean isVotingEnabled() {
         return votingEnabled;
     }
 
+    /**
+     * Sets whether or not voting is enabled.
+     * @param votingEnabled The new boolean.
+     */
     public static void setVotingEnabled(boolean votingEnabled) {
         Core.votingEnabled = votingEnabled;
     }
 
+    /**
+     * Gets the game's random number generator.
+     * @return The random.
+     */
     public static Random getRandom() {
         return random;
     }
 
-    public static void setRandom(Random random) {
-        Core.random = random;
-    }
-
-    public int getChangeText() {
-        return changeText;
-    }
-
-    public void setChangeText(int changeText) {
-        this.changeText = changeText;
-    }
-
+    /**
+     * Gets whether or not blood is enabled.
+     * @return Blood enabled boolean.
+     */
     public static boolean isBloodEnabled() {
         return bloodEnabled;
     }
 
+    /**
+     * Sets whether or not blood is enabled.
+     * @param bloodEnabled The new boolean.
+     */
     public static void setBloodEnabled(boolean bloodEnabled) {
         Core.bloodEnabled = bloodEnabled;
     }
 
+    /**
+     * Gets the soft prefix used in bar messages and the scoreboard objective.
+     * @return The soft prefix.
+     */
     public static String getSoftPrefix() {
         return softPrefix;
     }
 
+    /**
+     * Sets the soft prefix used in bar messages and the scoreboard objective.
+     * @param softPrefix The new soft prefix.
+     */
     public static void setSoftPrefix(String softPrefix) {
         Core.softPrefix = softPrefix;
     }
 
+    /**
+     *
+     * @return
+     */
     public static boolean isAnnounceLoadoutEnabled() {
         return announceLoadoutEnabled;
     }
 
+    /**
+     *
+     * @param announceLoadoutEnabled
+     */
     public static void setAnnounceLoadoutEnabled(boolean announceLoadoutEnabled) {
         Core.announceLoadoutEnabled = announceLoadoutEnabled;
     }
 
+    /**
+     *
+     * @return
+     */
     public static Loadout getCurrentLoadout() {
         return currentLoadout;
     }
 
+    /**
+     *
+     * @param currentLoadout
+     */
     public static void setCurrentLoadout(Loadout currentLoadout) {
         Core.currentLoadout = currentLoadout;
     }
 
+    /**
+     *
+     * @return
+     */
     public static boolean isCustomLoadoutEnabled() {
         return customLoadoutEnabled;
     }
 
+    /**
+     *
+     * @param customLoadoutEnabled
+     */
     public static void setCustomLoadoutEnabled(boolean customLoadoutEnabled) {
         Core.customLoadoutEnabled = customLoadoutEnabled;
     }
 
+    /**
+     *
+     * @return
+     */
     public static boolean isFillBucketEnabled() {
         return fillBucketEnabled;
     }
 
+    /**
+     *
+     * @param fillBucketEnabled
+     */
     public static void setFillBucketEnabled(boolean fillBucketEnabled) {
         Core.fillBucketEnabled = fillBucketEnabled;
     }
 
+    /**
+     *
+     * @return
+     */
     public static boolean isPlaceBucketEnabled() {
         return placeBucketEnabled;
     }
 
+    /**
+     *
+     * @param placeBucketEnabled
+     */
     public static void setPlaceBucketEnabled(boolean placeBucketEnabled) {
         Core.placeBucketEnabled = placeBucketEnabled;
     }
 
+    /**
+     *
+     * @return
+     */
     public static boolean isDefaultScoreboardEnabled() {
         return defaultScoreboardEnabled;
     }
 
+    /**
+     *
+     * @param defaultScoreboardEnabled
+     */
     public static void setDefaultScoreboardEnabled(boolean defaultScoreboardEnabled) {
         Core.defaultScoreboardEnabled = defaultScoreboardEnabled;
     }
 
 
+    /**
+     *
+     * @return
+     */
     public static ArrayList<String> getSpectators() {
         return spectators;
     }
 
+    /**
+     *
+     * @return
+     */
     public static ArrayList<String> getPlayers() {
         return players;
     }
 
+    /**
+     *
+     * @return
+     */
     public static boolean isSpectatingEnabled() {
         return spectatingEnabled;
     }
 
+    /**
+     *
+     * @param spectatingEnabled
+     */
     public static void setSpectatingEnabled(boolean spectatingEnabled) {
         Core.spectatingEnabled = spectatingEnabled;
     }
 
+    /**
+     *
+     * @return
+     */
     public static Score getTimeLeft() {
         return timeLeft;
     }
 
+    /**
+     *
+     * @return
+     */
     public static boolean isClearItemsEnabled() {
         return clearItemsEnabled;
     }
 
+    /**
+     *
+     * @param clearItemsEnabled
+     */
     public static void setClearItemsEnabled(boolean clearItemsEnabled) {
         Core.clearItemsEnabled = clearItemsEnabled;
     }
 
+    /**
+     *
+     * @return
+     */
     public static ArrayList<Block> getBlocks() {
         return blocks;
     }
 
+    /**
+     *
+     * @return
+     */
     public static boolean isArrowHitEnabled() {
         return arrowHitEnabled;
     }
 
+    /**
+     *
+     * @param arrowHitEnabled
+     */
     public static void setArrowHitEnabled(boolean arrowHitEnabled) {
         Core.arrowHitEnabled = arrowHitEnabled;
     }
 
+    /**
+     *
+     * @return
+     */
     public static Scoreboard getBoard() {
         return board;
     }
 
+    /**
+     *
+     * @param board
+     */
     public static void setBoard(Scoreboard board) {
         Core.board = board;
     }
 
+    /**
+     *
+     * @return
+     */
     public static Objective getBoardObjective() {
         return boardObjective;
     }
 
+    /**
+     *
+     * @param boardObjective
+     */
     public static void setBoardObjective(Objective boardObjective) {
         Core.boardObjective = boardObjective;
     }
 
+    /**
+     *
+     * @return
+     */
     public static Score getOnline() {
         return online;
     }
 
+    /**
+     *
+     * @param online
+     */
     public static void setOnline(Score online) {
         Core.online = online;
     }
 
+    /**
+     *
+     * @return
+     */
     public static Score getVersion() {
         return version;
     }
 
+    /**
+     *
+     * @param version
+     */
     public static void setVersion(Score version) {
         Core.version = version;
     }
 
+    /**
+     *
+     * @return
+     */
     public static boolean isBreakEnabled() {
         return breakEnabled;
     }
 
+    /**
+     *
+     * @param breakEnabled
+     */
     public static void setBreakEnabled(boolean breakEnabled) {
         Core.breakEnabled = breakEnabled;
     }
 
+    /**
+     *
+     * @return
+     */
     public static boolean isPickupItemsEnabled() {
         return pickupItemsEnabled;
     }
 
+    /**
+     *
+     * @param pickupItemsEnabled
+     */
     public static void setPickupItemsEnabled(boolean pickupItemsEnabled) {
         Core.pickupItemsEnabled = pickupItemsEnabled;
     }
 
+    /**
+     *
+     * @return
+     */
     public static boolean isDropItemsEnabled() {
         return dropItemsEnabled;
     }
 
+    /**
+     *
+     * @param dropItemsEnabled
+     */
     public static void setDropItemsEnabled(boolean dropItemsEnabled) {
         Core.dropItemsEnabled = dropItemsEnabled;
     }
 
+    /**
+     *
+     * @return
+     */
     public static Location[] getIngamePoints() {
         return ingamePoints;
     }
 
+    /**
+     *
+     * @return
+     */
     public static Location getLobbySpawnpoint() {
         return lobbySpawnpoint;
     }
 
+    /**
+     *
+     * @param lobbySpawnpoint
+     */
     public static void setLobbySpawnpoint(Location lobbySpawnpoint) {
         Core.lobbySpawnpoint = lobbySpawnpoint;
     }
 
+    /**
+     *
+     * @return
+     */
     public static int getTicks() {
         return ticks;
     }
 
+    /**
+     *
+     * @param ticks
+     */
     public static void setTicks(int ticks) {
         Core.ticks = ticks;
     }
 
+    /**
+     *
+     * @return
+     */
     public static boolean isPvpEnabled() {
         return pvpEnabled;
     }
 
+    /**
+     *
+     * @param pvpEnabled
+     */
     public static void setPvpEnabled(boolean pvpEnabled) {
         Core.pvpEnabled = pvpEnabled;
     }
 
+    /**
+     *
+     * @return
+     */
     public static boolean isBuildEnabled() {
         return buildEnabled;
     }
 
+    /**
+     *
+     * @param buildEnabled
+     */
     public static void setBuildEnabled(boolean buildEnabled) {
         Core.buildEnabled = buildEnabled;
     }
 
+    /**
+     *
+     * @return
+     */
     public static String getPrefix() {
         return prefix;
     }
 
+    /**
+     *
+     * @param name
+     */
     public static void setPrefix(String name) {
         String prefix = "§8[§5" + name + "§8] §f";
 
         Core.prefix = prefix;
     }
 
+    /**
+     *
+     * @return
+     */
     public static int getMinPlayers() {
         return minPlayers;
     }
 
+    /**
+     *
+     * @return
+     */
     public static int getMaxPlayers() {
         return maxPlayers;
     }
 
+    /**
+     *
+     * @param maxPlayers
+     */
     public static void setMaxPlayers(int maxPlayers) {
         Core.maxPlayers = maxPlayers;
     }
 
+    /**
+     *
+     * @return
+     */
     public static State getState() {
         return state;
     }
 
+    /**
+     *
+     * @param state
+     */
     public static void setState(State state) {
         Core.state = state;
     }
 
+    /**
+     *
+     * @return
+     */
     public static ItemStack getHub() {
         return hub;
     }
 
+    /**
+     *
+     * @return
+     */
     public static String[] getIngameMessage() {
         return ingameMessage;
     }
 
+    /**
+     *
+     * @param ingameMessage
+     */
     public static void setIngameMessage(String[] ingameMessage) {
         Core.ingameMessage = ingameMessage;
     }
 
+    /**
+     *
+     * @param ingamePoints
+     */
     public static void setIngamePoints(Location[] ingamePoints) {
         Core.ingamePoints = ingamePoints;
     }
 
+    /**
+     *
+     * @param timeLeft
+     */
     public static void setTimeLeft(Score timeLeft) {
         Core.timeLeft = timeLeft;
     }
 
+    /**
+     *
+     * @param blocks
+     */
     public static void setBlocks(ArrayList<Block> blocks) {
         Core.blocks = blocks;
     }
 
+    /**
+     *
+     * @param spectators
+     */
     public static void setSpectators(ArrayList<String> spectators) {
         Core.spectators = spectators;
     }
 
+    /**
+     *
+     * @param players
+     */
     public static void setPlayers(ArrayList<String> players) {
         Core.players = players;
     }
 
+    /**
+     *
+     * @param hub
+     */
     public static void setHub(ItemStack hub) {
         Core.hub = hub;
     }
 
+    /**
+     *
+     * @return
+     */
     public static String[] getAnnouncements() {
         return announcements;
     }
 
+    /**
+     *
+     * @param announcements
+     */
     public static void setAnnouncements(String[] announcements) {
         Core.announcements = announcements;
-    }
-
-    int changeText = 0;
-
-    public void changeText(final Objective o, long time, final String... text) {
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
-            public void run() {
-                if (changeText >= text.length)
-                    changeText = 0;
-                o.setDisplayName(text[changeText]);
-                changeText++;
-            }
-        }
-                , 0, time);
     }
 
     @Override
@@ -438,8 +711,6 @@ public class Core extends JavaPlugin {
             version.setScore(1);
             timeLeft = boardObjective.getScore("§eTime");
             timeLeft.setScore(31);
-
-            changeText(boardObjective, 1000, "§" + validColorCodes[random.nextInt(validColorCodes.length)] + "§l" + getSoftPrefix());
         }
 
         blocks = new ArrayList<>();
