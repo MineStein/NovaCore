@@ -1,7 +1,8 @@
 package com.minestein.novacore;
 
 import com.minestein.novacore.command.Hub;
-import com.minestein.novacore.command.TeamJoin;
+import com.minestein.novacore.command.Join;
+import com.minestein.novacore.command.Join;
 import com.minestein.novacore.command.Youtube;
 import com.minestein.novacore.listener.Events;
 import com.minestein.novacore.util.general.Fight;
@@ -423,7 +424,7 @@ public class Core extends JavaPlugin {
 
         getCommand("youtube").setExecutor(new Youtube());
         getCommand("hub").setExecutor(new Hub());
-        getCommand("join").setExecutor(new TeamJoin());
+        getCommand("join").setExecutor(new Join());
 
         getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 

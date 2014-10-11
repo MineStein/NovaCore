@@ -8,6 +8,7 @@ import java.util.HashSet;
  * Author: Champ.
  */
 public class Spectator extends Team {
+
     /**
      * Creates a new team (NOTE: TeamManager.registerTeam(team) in the onEnable is required).
      *
