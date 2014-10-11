@@ -59,6 +59,7 @@ public class Core extends JavaPlugin {
     private static boolean customLoadoutEnabled;
     private static boolean announceLoadoutEnabled;
     private static boolean bloodEnabled;
+    private static boolean votingEnabled;
     private static Scoreboard board;
     private static Objective boardObjective;
     private static Score online;
@@ -70,6 +71,54 @@ public class Core extends JavaPlugin {
     private static ItemStack hub;
     public static Random random;
     private static Loadout currentLoadout;
+
+    public static String getCurrentMessage() {
+        return currentMessage;
+    }
+
+    public static void setCurrentMessage(String currentMessage) {
+        Core.currentMessage = currentMessage;
+    }
+
+    public static Core getPlugin() {
+        return plugin;
+    }
+
+    public static void setPlugin(Core plugin) {
+        Core.plugin = plugin;
+    }
+
+    public String[] getValidColorCodes() {
+        return validColorCodes;
+    }
+
+    public static String getIngameMessageHeader() {
+        return ingameMessageHeader;
+    }
+
+    public static boolean isVotingEnabled() {
+        return votingEnabled;
+    }
+
+    public static void setVotingEnabled(boolean votingEnabled) {
+        Core.votingEnabled = votingEnabled;
+    }
+
+    public static Random getRandom() {
+        return random;
+    }
+
+    public static void setRandom(Random random) {
+        Core.random = random;
+    }
+
+    public int getChangeText() {
+        return changeText;
+    }
+
+    public void setChangeText(int changeText) {
+        this.changeText = changeText;
+    }
 
     public static boolean isBloodEnabled() {
         return bloodEnabled;
