@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="BarAPI">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../Libraries/BarAPI.jar!/" />
+      <root url="jar://$USER_HOME$/AppData/MC Network/BarAPI.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

@@ -91,4 +91,8 @@ public class Team {
     public void setMembers(HashSet<Player> members) {
         this.members = members;
     }
+
+    public void resetMembers(){
+        members.clear();
+    }
 }
