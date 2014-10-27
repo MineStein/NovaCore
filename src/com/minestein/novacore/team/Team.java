@@ -16,11 +16,11 @@ public class Team {
     /**
      * The name of the team.
      */
-    String name;
+    static String name;
     /**
      * The members within the team.
      */
-    HashSet<Player> members;
+    static HashSet<Player> members;
 
     /**
      * Creates a new team (NOTE: TeamManager.registerTeam(team) in the onEnable is required).
@@ -38,8 +38,8 @@ public class Team {
      *
      * @param player The player to add.
      */
-    public void addMember(Player player) {
-        this.members.add(player);
+    public static void addMember(Player player) {
+        Team.members.add(player);
     }
 
     /**
@@ -47,12 +47,12 @@ public class Team {
      *
      * @param player The player to remove.
      */
-    public void removeMember(Player player) {
+    public static void removeMember(Player player) {
         if (!members.contains(player)) {
             Bukkit.getLogger().warning(player.getName().toUpperCase() + " is not on this team!");
             return;
         } else {
-            this.members.remove(player);
+            Team.members.remove(player);
         }
     }
 
@@ -61,7 +61,7 @@ public class Team {
      *
      * @return The name.
      */
-    public String getName() {
+    public static String getName() {
         return name;
     }
 
@@ -70,8 +70,8 @@ public class Team {
      *
      * @param name The new name to replace the old one.
      */
-    public void setName(String name) {
-        this.name = name;
+    public static void setName(String name) {
+        Team.name = name;
     }
 
     /**
@@ -79,7 +79,7 @@ public class Team {
      *
      * @return The members.
      */
-    public Set<Player> getMembers() {
+    public static Set<Player> getMembers() {
         return members;
     }
 
@@ -88,11 +88,11 @@ public class Team {
      *
      * @param members The new members to replace the old one.
      */
-    public void setMembers(HashSet<Player> members) {
-        this.members = members;
+    public static void setMembers(HashSet<Player> members) {
+        Team.members = members;
     }
 
-    public void resetMembers(){
+    public static void resetMembers(){
         members.clear();
     }
 }

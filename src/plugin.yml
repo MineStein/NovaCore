@@ -8,9 +8,15 @@ commands:
     aliases: [yt]
     usage: /yt <Subcommand> <Argument>
   hub:
-    description: For sending lobby.
+    description: For sending to the lobby.
     aliases: [lobby, leave, quit]
     usage: /hub
+  join:
+    description: For the join team command.
+    usage: /join <Team>
+  guide:
+    description: For getting help.
+    usage: /guide
 
 permissions:
   youtube.command:

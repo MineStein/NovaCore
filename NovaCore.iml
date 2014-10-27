@@ -7,9 +7,10 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="craftbukkit" level="project" />
     <orderEntry type="library" name="BukkitAPI" level="project" />
     <orderEntry type="library" name="BarAPI" level="project" />
+    <orderEntry type="library" name="craftbukkit copy" level="project" />
+    <orderEntry type="library" name="ProtocolLib-3.4.0" level="project" />
   </component>
 </module>
 

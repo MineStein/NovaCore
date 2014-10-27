@@ -1,5 +1,6 @@
 package com.minestein.novacore;
 
+import com.minestein.novacore.command.Guide;
 import com.minestein.novacore.command.Hub;
 import com.minestein.novacore.command.Join;
 import com.minestein.novacore.command.Youtube;
@@ -12,7 +13,11 @@ import me.confuser.barapi.BarAPI;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.*;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -38,6 +43,8 @@ public class Core extends JavaPlugin {
     private static String prefix = "§8[§5Game§8] §f";
     private static String softPrefix = "Game";
     private static String currentMessage;
+    public static final String ingameMessageHeader = "§c§l/ §4§l/ §c§l/ §4§l/ §c§l/ §5§lNova§6§lUniverse §c§l/ §4§l/ §c§l/ §4§l/ §c§l/";
+    private static String guide = "§bExample Guide";
     private static final int minPlayers = 2;
     private static int maxPlayers = 12;
     private static State state;
@@ -46,10 +53,9 @@ public class Core extends JavaPlugin {
     private static Location[] ingamePoints;
     private static String[] ingameMessage;
     private static String[] announcements;
-    final String[] validColorCodes = new String[]{
+    public static final String[] validColorCodes = new String[]{
             "4", "c", "e", "a", "b", "9", "d"
     };
-    public static final String ingameMessageHeader = "§c§l/ §4§l/ §c§l/ §4§l/ §c§l/ §5§lNova§6§lUniverse §c§l/ §4§l/ §c§l/ §4§l/ §c§l/";
     private static boolean pvpEnabled;
     private static boolean buildEnabled;
     private static boolean dropItemsEnabled;
@@ -78,7 +84,52 @@ public class Core extends JavaPlugin {
     private static Loadout currentLoadout;
 
     /**
+     * Takes the guides string and creates a book.
+     *
+     * @return The new book.
+     */
+    public static ItemStack getGuideItem() {
+        ItemStack i = new ItemStack(Material.WRITTEN_BOOK);
+        {
+            BookMeta m = (BookMeta) i.getItemMeta();
+            m.setAuthor("NovaUniverse");
+            m.addPage("1");
+            m.setPage(1, getGuide());
+            m.setDisplayName("");
+            ArrayList<String> l = new ArrayList<>();
+            l.add("§5§oA guide used");
+            l.add("§5§ofor assistance in");
+            l.add("§5§o" + Core.getSoftPrefix());
+            m.setLore(l);
+            i.setItemMeta(m);
+        }
+
+        return i;
+    }
+
+    /**
+     * Gets the current guide for the game.
+     *
+     * @return The guide.
+     */
+    public static String getGuide() {
+        return guide;
+    }
+
+    /**
+     * Sets the current guide for the game.
+     *
+     * @param guide The new guide.
+     */
+    public static void setGuide(String guide) {
+        String newGuide = "§5§oWelcome to "+getSoftPrefix()+"\n\n§7"+guide;
+
+        Core.guide = newGuide;
+    }
+
+    /**
      * Gets the current message in the boss bar.
+     *
      * @return The boss bar message.
      */
     public static String getCurrentMessage() {
@@ -87,6 +138,7 @@ public class Core extends JavaPlugin {
 
     /**
      * Sets the current message of the boss bar.
+     *
      * @param currentMessage The new message.
      */
     public static void setCurrentMessage(String currentMessage) {
@@ -95,6 +147,7 @@ public class Core extends JavaPlugin {
 
     /**
      * Gets the plugin instance.
+     *
      * @return The plugin.
      */
     public static Core getPlugin() {
@@ -103,6 +156,7 @@ public class Core extends JavaPlugin {
 
     /**
      * Gets the valid color codes for the games.
+     *
      * @return The valid color codes.
      */
     public String[] getValidColorCodes() {
@@ -111,6 +165,7 @@ public class Core extends JavaPlugin {
 
     /**
      * Gets the in-game message header.
+     *
      * @return The message header.
      */
     public static String getIngameMessageHeader() {
@@ -119,6 +174,7 @@ public class Core extends JavaPlugin {
 
     /**
      * Gets whether or not voting is enabled.
+     *
      * @return Voting enabled boolean.
      */
     public static boolean isVotingEnabled() {
@@ -127,6 +183,7 @@ public class Core extends JavaPlugin {
 
     /**
      * Sets whether or not voting is enabled.
+     *
      * @param votingEnabled The new boolean.
      */
     public static void setVotingEnabled(boolean votingEnabled) {
@@ -135,6 +192,7 @@ public class Core extends JavaPlugin {
 
     /**
      * Gets the game's random number generator.
+     *
      * @return The random.
      */
     public static Random getRandom() {
@@ -143,6 +201,7 @@ public class Core extends JavaPlugin {
 
     /**
      * Gets whether or not blood is enabled.
+     *
      * @return Blood enabled boolean.
      */
     public static boolean isBloodEnabled() {
@@ -151,6 +210,7 @@ public class Core extends JavaPlugin {
 
     /**
      * Sets whether or not blood is enabled.
+     *
      * @param bloodEnabled The new boolean.
      */
     public static void setBloodEnabled(boolean bloodEnabled) {
@@ -159,6 +219,7 @@ public class Core extends JavaPlugin {
 
     /**
      * Gets the soft prefix used in bar messages and the scoreboard objective.
+     *
      * @return The soft prefix.
      */
     public static String getSoftPrefix() {
@@ -167,6 +228,7 @@ public class Core extends JavaPlugin {
 
     /**
      * Sets the soft prefix used in bar messages and the scoreboard objective.
+     *
      * @param softPrefix The new soft prefix.
      */
     public static void setSoftPrefix(String softPrefix) {
@@ -174,7 +236,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @return
      */
     public static boolean isAnnounceLoadoutEnabled() {
@@ -182,7 +243,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @param announceLoadoutEnabled
      */
     public static void setAnnounceLoadoutEnabled(boolean announceLoadoutEnabled) {
@@ -190,7 +250,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @return
      */
     public static Loadout getCurrentLoadout() {
@@ -198,7 +257,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @param currentLoadout
      */
     public static void setCurrentLoadout(Loadout currentLoadout) {
@@ -206,7 +264,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @return
      */
     public static boolean isCustomLoadoutEnabled() {
@@ -214,7 +271,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @param customLoadoutEnabled
      */
     public static void setCustomLoadoutEnabled(boolean customLoadoutEnabled) {
@@ -222,7 +278,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @return
      */
     public static boolean isFillBucketEnabled() {
@@ -230,7 +285,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @param fillBucketEnabled
      */
     public static void setFillBucketEnabled(boolean fillBucketEnabled) {
@@ -238,7 +292,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @return
      */
     public static boolean isPlaceBucketEnabled() {
@@ -246,7 +299,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @param placeBucketEnabled
      */
     public static void setPlaceBucketEnabled(boolean placeBucketEnabled) {
@@ -254,7 +306,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @return
      */
     public static boolean isDefaultScoreboardEnabled() {
@@ -262,7 +313,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @param defaultScoreboardEnabled
      */
     public static void setDefaultScoreboardEnabled(boolean defaultScoreboardEnabled) {
@@ -271,7 +321,6 @@ public class Core extends JavaPlugin {
 
 
     /**
-     *
      * @return
      */
     public static ArrayList<String> getSpectators() {
@@ -279,7 +328,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @return
      */
     public static ArrayList<String> getPlayers() {
@@ -287,7 +335,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @return
      */
     public static boolean isSpectatingEnabled() {
@@ -295,7 +342,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @param spectatingEnabled
      */
     public static void setSpectatingEnabled(boolean spectatingEnabled) {
@@ -303,7 +349,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @return
      */
     public static Score getTimeLeft() {
@@ -311,7 +356,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @return
      */
     public static boolean isClearItemsEnabled() {
@@ -319,7 +363,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @param clearItemsEnabled
      */
     public static void setClearItemsEnabled(boolean clearItemsEnabled) {
@@ -327,7 +370,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @return
      */
     public static ArrayList<Block> getBlocks() {
@@ -335,7 +377,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @return
      */
     public static boolean isArrowHitEnabled() {
@@ -343,7 +384,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @param arrowHitEnabled
      */
     public static void setArrowHitEnabled(boolean arrowHitEnabled) {
@@ -351,7 +391,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @return
      */
     public static Scoreboard getBoard() {
@@ -359,7 +398,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @param board
      */
     public static void setBoard(Scoreboard board) {
@@ -367,7 +405,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @return
      */
     public static Objective getBoardObjective() {
@@ -375,7 +412,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @param boardObjective
      */
     public static void setBoardObjective(Objective boardObjective) {
@@ -383,7 +419,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @return
      */
     public static Score getOnline() {
@@ -391,7 +426,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @param online
      */
     public static void setOnline(Score online) {
@@ -399,7 +433,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @return
      */
     public static Score getVersion() {
@@ -407,7 +440,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @param version
      */
     public static void setVersion(Score version) {
@@ -415,7 +447,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @return
      */
     public static boolean isBreakEnabled() {
@@ -423,7 +454,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @param breakEnabled
      */
     public static void setBreakEnabled(boolean breakEnabled) {
@@ -431,7 +461,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @return
      */
     public static boolean isPickupItemsEnabled() {
@@ -439,7 +468,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @param pickupItemsEnabled
      */
     public static void setPickupItemsEnabled(boolean pickupItemsEnabled) {
@@ -447,7 +475,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @return
      */
     public static boolean isDropItemsEnabled() {
@@ -455,7 +482,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @param dropItemsEnabled
      */
     public static void setDropItemsEnabled(boolean dropItemsEnabled) {
@@ -463,7 +489,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @return
      */
     public static Location[] getIngamePoints() {
@@ -471,7 +496,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @return
      */
     public static Location getLobbySpawnpoint() {
@@ -479,7 +503,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @param lobbySpawnpoint
      */
     public static void setLobbySpawnpoint(Location lobbySpawnpoint) {
@@ -487,7 +510,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @return
      */
     public static int getTicks() {
@@ -495,7 +517,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @param ticks
      */
     public static void setTicks(int ticks) {
@@ -503,7 +524,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @return
      */
     public static boolean isPvpEnabled() {
@@ -511,7 +531,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @param pvpEnabled
      */
     public static void setPvpEnabled(boolean pvpEnabled) {
@@ -519,7 +538,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @return
      */
     public static boolean isBuildEnabled() {
@@ -527,7 +545,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @param buildEnabled
      */
     public static void setBuildEnabled(boolean buildEnabled) {
@@ -535,7 +552,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @return
      */
     public static String getPrefix() {
@@ -543,7 +559,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @param name
      */
     public static void setPrefix(String name) {
@@ -553,7 +568,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @return
      */
     public static int getMinPlayers() {
@@ -561,7 +575,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @return
      */
     public static int getMaxPlayers() {
@@ -569,7 +582,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @param maxPlayers
      */
     public static void setMaxPlayers(int maxPlayers) {
@@ -577,7 +589,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @return
      */
     public static State getState() {
@@ -585,7 +596,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @param state
      */
     public static void setState(State state) {
@@ -593,7 +603,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @return
      */
     public static ItemStack getHub() {
@@ -601,7 +610,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @return
      */
     public static String[] getIngameMessage() {
@@ -609,7 +617,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @param ingameMessage
      */
     public static void setIngameMessage(String[] ingameMessage) {
@@ -617,7 +624,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @param ingamePoints
      */
     public static void setIngamePoints(Location[] ingamePoints) {
@@ -625,7 +631,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @param timeLeft
      */
     public static void setTimeLeft(Score timeLeft) {
@@ -633,7 +638,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @param blocks
      */
     public static void setBlocks(ArrayList<Block> blocks) {
@@ -641,7 +645,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @param spectators
      */
     public static void setSpectators(ArrayList<String> spectators) {
@@ -649,7 +652,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @param players
      */
     public static void setPlayers(ArrayList<String> players) {
@@ -657,7 +659,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @param hub
      */
     public static void setHub(ItemStack hub) {
@@ -665,7 +666,6 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @return
      */
     public static String[] getAnnouncements() {
@@ -673,11 +673,37 @@ public class Core extends JavaPlugin {
     }
 
     /**
-     *
      * @param announcements
      */
     public static void setAnnouncements(String[] announcements) {
         Core.announcements = announcements;
+    }
+
+    public static void refreshScoreboard() {
+        Scoreboard newScoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+        Objective newObjective = newScoreboard.registerNewObjective("newScoreboard", "dummy");
+        newObjective.setDisplayName("§" + validColorCodes[random.nextInt(validColorCodes.length)] + "§l" + getSoftPrefix());
+        newObjective.setDisplaySlot(DisplaySlot.SIDEBAR);
+        Score newOnline = newObjective.getScore("§eOnline");
+        newOnline.setScore(Bukkit.getOnlinePlayers().length);
+        Score newTimeLeft = newObjective.getScore("§eTime");
+        newTimeLeft.setScore(Core.getTicks());
+
+        for (Player players : Bukkit.getOnlinePlayers()) {
+            players.setScoreboard(newScoreboard);
+        }
+    }
+
+    @EventHandler
+    public void onInteract(PlayerInteractEvent e) {
+        final Player p = e.getPlayer();
+
+        if (e.getAction() != Action.LEFT_CLICK_AIR && e.getAction() != Action.LEFT_CLICK_BLOCK) return;
+        if (e.getItem().getType() != Material.BONE) return;
+
+        final Wolf wolf = p.getWorld().spawn(p.getLocation(), Wolf.class);
+
+        Bukkit.getScheduler().runTaskLater(this, wolf::remove, 80);
     }
 
     @Override
@@ -698,20 +724,9 @@ public class Core extends JavaPlugin {
         getCommand("youtube").setExecutor(new Youtube());
         getCommand("hub").setExecutor(new Hub());
         getCommand("join").setExecutor(new Join());
+        getCommand("guide").setExecutor(new Guide());
 
         getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-
-        if (isDefaultScoreboardEnabled()) {
-            board = Bukkit.getScoreboardManager().getNewScoreboard();
-            boardObjective = board.registerNewObjective("mainBoard", "dummy");
-            boardObjective.setDisplaySlot(DisplaySlot.SIDEBAR);
-            boardObjective.setDisplayName(getSoftPrefix());
-            online = boardObjective.getScore("§4Online");
-            version = boardObjective.getScore("§cVersion");
-            version.setScore(1);
-            timeLeft = boardObjective.getScore("§eTime");
-            timeLeft.setScore(31);
-        }
 
         blocks = new ArrayList<>();
 
@@ -767,6 +782,21 @@ public class Core extends JavaPlugin {
                             }
                         }
                     }
+                }
+
+                if (isDefaultScoreboardEnabled()) {
+                     /*board = Bukkit.getScoreboardManager().getNewScoreboard();
+                 boardObjective = board.registerNewObjective("mainBoard", "dummy");
+                   boardObjective.setDisplaySlot(DisplaySlot.SIDEBAR);
+                   boardObjective.setDisplayName("§"+validColorCodes[getRandom().nextInt(validColorCodes.length)]+"§l"+getSoftPrefix());
+                   online = boardObjective.getScore("§4Online");
+                    version = boardObjective.getScore("§cVersion");
+                    version.setScore(1);
+                    timeLeft = boardObjective.getScore("§eTime");
+                    timeLeft.setScore(31);
+                    */
+
+                    refreshScoreboard();
                 }
 
                 Timer.runTimer();

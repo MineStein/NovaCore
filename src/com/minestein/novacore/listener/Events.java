@@ -3,13 +3,16 @@ package com.minestein.novacore.listener;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import com.minestein.novacore.Core;
+import com.minestein.novacore.command.Guide;
 import com.minestein.novacore.command.Hub;
 import com.minestein.novacore.util.general.ChatUtil;
 import com.minestein.novacore.util.general.Fight;
 import com.minestein.novacore.util.general.State;
+import net.minecraft.server.v1_7_R4.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.GameMode;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -328,13 +331,31 @@ public class Events implements Listener {
      */
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        final Player p = event.getPlayer();
+        final CraftPlayer p = (CraftPlayer) event.getPlayer();
+        final EntityPlayer ep = p.getHandle();
+        final String guideAlert = "{\"text\":\"\",\"extra\":[{\"text\":\""+Core.getPrefix()+"§bClick me for help in this game!\",\"clickEvent\":{\"action\":\"suggest_command\",\"value\":\"/guide\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":{\"text\":\"\",\"extra\":[{\"text\":\"§5§oProvides help\\§5§ofor this minigame!\"}]}}}]}";
 
         if (Core.isDefaultScoreboardEnabled()) {
             Core.getOnline().setScore(Bukkit.getOnlinePlayers().length);
         }
 
+        if (Guide.alreadyGuide.contains(p.getName())) {
+            Guide.alreadyGuide.remove(p.getName());
+        }
+
         event.setJoinMessage(Core.getPrefix() + "§e§l" + event.getPlayer().getName().toUpperCase() + " §6has joined §8(§3" + Bukkit.getOnlinePlayers().length + "§8/§3" + Core.getMaxPlayers() + "§8)");
+
+        Bukkit.getScheduler().runTaskLater(Core.plugin, () -> {
+            for (int i = 0; i < 2; i++) {
+                p.sendMessage("");
+            }
+
+            IChatBaseComponent comp = ChatSerializer.a(guideAlert);
+            PacketPlayOutChat packet = new PacketPlayOutChat(comp);
+            ep.playerConnection.sendPacket(packet);
+        }, 5);
+
+
 
         event.getPlayer().teleport(Core.getLobbySpawnpoint());
         p.setHealth(20.0);

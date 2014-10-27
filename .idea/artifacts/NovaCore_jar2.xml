@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" build-on-make="true" name="NovaCore:jar2">
-    <output-path>$USER_HOME$/Servers/Bungee/BuildMyThingTest/plugins</output-path>
+    <output-path>$PROJECT_DIR$/../../Servers/Bungee/BuildMyThingTest/plugins</output-path>
     <root id="archive" name="NovaCore.jar">
       <element id="module-output" name="NovaCore" />
     </root>
