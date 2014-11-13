@@ -5,6 +5,7 @@ import com.google.common.io.ByteStreams;
 import com.minestein.novacore.Core;
 import com.minestein.novacore.command.Guide;
 import com.minestein.novacore.command.Hub;
+import com.minestein.novacore.team.Spectator;
 import com.minestein.novacore.util.general.ChatUtil;
 import com.minestein.novacore.util.general.Fight;
 import com.minestein.novacore.util.general.State;
@@ -136,10 +137,12 @@ public class Events implements Listener {
      * @param event The event.
      */
     @EventHandler
-    public void onPvP(EntityDamageByEntityEvent event) {
+    public void onPvP(EntityDamageByEntityEvent event, Spectator spectator) {
         if (event.getDamager() instanceof Player && event.getEntity() instanceof Player) {
             Player damager = (Player) event.getDamager();
             Player damaged = (Player) event.getEntity();
+
+            if (spectator.spectators.contains(damager.getName())){event.setCancelled(true);}
 
             if (Core.getState() != State.INGAME) {
                 event.setCancelled(true);
